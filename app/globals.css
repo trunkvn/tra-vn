@@ -129,6 +129,32 @@ a:hover {
   outline-offset: 3px;
   border-radius: 4px;
 }
+/* Text selection: a swipe of fresh matcha with leaf-black type, instead of the browser's default blue. */
+::selection {
+  background: var(--matcha-300);
+  color: var(--leaf-900);
+  text-shadow: none;
+}
+/* On the cream brewing page, the reverse: deep leaf green with cream type. */
+.brew ::selection {
+  background: var(--leaf-600);
+  color: var(--cream);
+}
+/* Amber buttons would swallow a matcha highlight, so they get a dark one. */
+.btn--solid ::selection,
+.btn--solid::selection {
+  background: var(--leaf-800);
+  color: var(--amber-200);
+}
+/* Photographs: the browser tints a selected image blue; tint it matcha instead. */
+img::selection {
+  background: rgba(195, 217, 140, 0.4);
+}
+:root {
+  accent-color: var(--amber-400);
+  caret-color: var(--matcha-300);
+}
+
 .skip-link {
   position: absolute;
   left: 50%;

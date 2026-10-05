@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro } from "next/font/google";
+import Loader from "@/components/loader/Loader";
 import "./globals.css";
 
 const beVietnam = Be_Vietnam_Pro({
@@ -27,7 +28,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <link rel="preload" href="/fonts/big-shoulders-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/big-shoulders-vietnamese.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
-      <body>{children}</body>
+      <body>
+        <Loader />
+        {children}
+      </body>
     </html>
   );
 }

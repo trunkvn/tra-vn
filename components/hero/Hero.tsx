@@ -38,7 +38,7 @@ export default function Hero() {
           </p>
           <div className="hero__cta">
             <a className="btn btn--solid" href="#leaves">
-              Warm the pot
+              Pour a cup
             </a>
             <AudioPlayer />
           </div>
