@@ -1,0 +1,204 @@
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(8, 18, 12, 0.94);
+  background: color-mix(in srgb, var(--leaf-900) 88%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid rgba(195, 217, 140, 0.2);
+}
+.masthead__inner {
+  position: relative;
+  width: var(--shell);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 3vw, 2.5rem);
+  min-height: 66px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex: none;
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: 1.32rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-decoration: none;
+}
+.brand:hover {
+  color: var(--matcha-200);
+}
+.brand__mark {
+  inline-size: 30px;
+  block-size: 30px;
+  flex: none;
+  color: var(--matcha-400);
+}
+@media (max-width: 560px) {
+  .brand__word {
+    display: none;
+  }
+}
+
+.nav {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1.8vw, 1.7rem);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.nav::-webkit-scrollbar {
+  display: none;
+}
+.nav a {
+  flex: none;
+  padding: 0.4rem 0.1rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--cream-dim);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.18s var(--ease);
+}
+.nav a:hover {
+  color: var(--matcha-200);
+}
+.nav a[aria-current="true"] {
+  color: var(--matcha-200);
+}
+
+/* One cloud for the whole nav, positioned by JS, that rides to the current section. */
+.nav__cloud {
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  inline-size: var(--cloud-w, 44px);
+  aspect-ratio: 420/159;
+  translate: var(--cloud-x, 0) 0;
+  background: url("/art/steam.svg") center/contain no-repeat;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    translate 0.5s cubic-bezier(0.34, 0.02, 0.2, 1),
+    inline-size 0.5s cubic-bezier(0.34, 0.02, 0.2, 1),
+    opacity 0.28s var(--ease);
+}
+.masthead--riding .nav__cloud {
+  opacity: 0.9;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav__cloud {
+    transition: opacity 0.01s;
+  }
+}
+
+/* Plaque button: a carved sign board with a double rule and a tea sprig either side. */
+.plaque {
+  --tab: 5px;
+  --bev: 8px;
+  position: relative;
+  display: inline-block;
+  flex: none;
+  color: var(--leaf-800);
+  text-decoration: none;
+  transition: translate 0.2s var(--ease);
+}
+.plaque__sprig {
+  block-size: 34px;
+  inline-size: auto;
+  flex: none;
+  display: block;
+}
+.plaque__sprig--right {
+  scale: -1 1;
+}
+.plaque__face {
+  --p: polygon(
+    calc(var(--tab) + var(--bev)) 0,
+    calc(100% - var(--tab) - var(--bev)) 0,
+    calc(100% - var(--tab)) var(--bev),
+    calc(100% - var(--tab)) 34%,
+    100% 42%,
+    100% 58%,
+    calc(100% - var(--tab)) 66%,
+    calc(100% - var(--tab)) calc(100% - var(--bev)),
+    calc(100% - var(--tab) - var(--bev)) 100%,
+    calc(var(--tab) + var(--bev)) 100%,
+    var(--tab) calc(100% - var(--bev)),
+    var(--tab) 66%,
+    0 58%,
+    0 42%,
+    var(--tab) 34%,
+    var(--tab) var(--bev)
+  );
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem calc(0.85rem + var(--tab));
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  background: var(--amber-400);
+  clip-path: var(--p);
+  box-shadow:
+    inset 0 0 0 2px #8f5e1c,
+    inset 0 0 0 5px var(--amber-400),
+    inset 0 0 0 6px rgba(20, 41, 28, 0.45);
+  transition:
+    background-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+.plaque:hover {
+  color: var(--leaf-800);
+  translate: 0 -2px;
+}
+.plaque:hover .plaque__face {
+  background: var(--amber-300);
+  box-shadow:
+    inset 0 0 0 2px #8f5e1c,
+    inset 0 0 0 5px var(--amber-300),
+    inset 0 0 0 6px rgba(20, 41, 28, 0.45);
+}
+.plaque:active {
+  translate: 0;
+}
+.plaque:focus-visible {
+  outline: 3px solid var(--matcha-200);
+  outline-offset: 5px;
+  border-radius: 6px;
+}
+@media (max-width: 840px) {
+  .masthead .plaque {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav__the {
+    display: none;
+  }
+  .nav {
+    gap: 0.85rem;
+  }
+  .nav a {
+    font-size: 0.84rem;
+    padding-block: 0.7rem;
+  }
+}
+@media (max-width: 380px) {
+  .nav {
+    gap: 0.7rem;
+  }
+  .nav a {
+    font-size: 0.8rem;
+  }
+}

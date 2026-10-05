@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -50 1000 570" fill="none" stroke="#c3d98c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<style>
+.sway { transform-origin: 250px 146px; animation: sway 7s ease-in-out infinite; }
+@keyframes sway {
+  0%,100% { transform: rotate(-0.5deg); }
+  50% { transform: rotate(0.5deg); }
+}
+.stream { animation: breathe 3.2s ease-in-out infinite; }
+@keyframes breathe {
+  0%,100% { opacity: .8; }
+  50% { opacity: 1; }
+}
+.flow { stroke-dasharray: 5 15; animation: flow 1.1s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -20; } }
+.surface { transform-box: fill-box; transform-origin: 50% 50%; animation: slosh 3.6s ease-in-out infinite; }
+@keyframes slosh {
+  0%,100% { transform: scale(1,1); }
+  50% { transform: scale(1.05,1.18); }
+}
+.ripple { transform-box: fill-box; transform-origin: 50% 50%; animation: ripple 3.2s ease-out infinite; }
+.r2 { animation-delay: -1.6s; }
+@keyframes ripple {
+  0%   { transform: scale(.45,.45); opacity: .85; }
+  100% { transform: scale(1.35,1.35); opacity: 0; }
+}
+.wisp { transform-box: fill-box; transform-origin: 50% 100%; opacity: 0; animation: wisp 7s ease-in-out infinite; }
+.w1 { animation-duration: 7s;   animation-delay: -1s; }
+.w2 { animation-duration: 8.4s; animation-delay: -4.2s; }
+.w3 { animation-duration: 6.2s; animation-delay: -2.6s; }
+.w4 { animation-duration: 9.2s; animation-delay: -5.6s; }
+.w5 { animation-duration: 8s;   animation-delay: -0.4s; }
+@keyframes wisp {
+  0%   { opacity: 0;   transform: translate(0px,24px) skewX(0deg) scale(.92,.86); }
+  22%  { opacity: .9;  transform: translate(2px,9px) skewX(3deg) scale(.97,.95); }
+  50%  { opacity: .7;  transform: translate(-3px,-7px) skewX(-4deg) scale(1,1); }
+  78%  { opacity: .3;  transform: translate(5px,-20px) skewX(4deg) scale(1.04,1.06); }
+  100% { opacity: 0;   transform: translate(-4px,-34px) skewX(-3deg) scale(1.08,1.1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sway, .stream, .flow, .surface, .ripple { animation: none; }
+  .flow { stroke-dasharray: none; opacity: 0; }
+  .wisp { animation: none; opacity: .5; }
+}
+</style>
+<g class="sway">
+<g transform="translate(250 146) rotate(16)">
+<path d="M-130 30C-130 -40 -70 -80 0 -80C70 -80 130 -40 130 30C130 100 70 130 0 130C-70 130 -130 100 -130 30Z"/>
+<path d="M-60 -78C-45 -105 45 -105 60 -78M-72 -78H72"/><circle cx="0" cy="-112" r="14"/>
+<path d="M126 10C176 -2 214 -34 232 -78L258 -66C246 -14 206 40 134 66M126 40C168 30 200 4 222 -34" stroke-width="2"/>
+<path d="M-126 -4C-196 -14 -214 40 -176 80C-156 98 -134 92 -122 84"/>
+<path d="M-130 30C-90 70 90 70 130 30" stroke-width="1.4" stroke-dasharray="2 8"/>
+</g>
+</g>
+<g class="stream"><path d="M520 156C566 170 574 230 562 292" stroke-width="2"/><path d="M528 150C580 166 584 232 574 292" stroke-width="1.2" opacity=".6"/>
+<path class="flow" d="M524 153C572 168 578 231 568 292" stroke-width="1.6" opacity=".9"/></g>
+<path d="M500 293.7C500 376.2 533.0 396 566 396C599.0 396 632 376.2 632 293.7Z" opacity="1"/>
+<ellipse cx="566" cy="293.7" rx="66" ry="13.200000000000001" opacity="1"/>
+<ellipse class="surface" cx="566" cy="295.68" rx="48.839999999999996" ry="8.58" stroke-width="1.2" opacity="0.6"/>
+<path d="M539.6 396 v7.92 h52.800000000000004 v-7.92" opacity="1"/>
+<path d="M684 341.2C684 411.2 712.0 428 740 428C768.0 428 796 411.2 796 341.2Z" opacity="0.8"/>
+<ellipse cx="740" cy="341.2" rx="56" ry="11.200000000000001" opacity="0.8"/>
+<ellipse cx="740" cy="342.88" rx="41.44" ry="7.28" stroke-width="1.2" opacity="0.48"/>
+<path d="M717.6 428 v6.72 h44.800000000000004 v-6.72" opacity="0.8"/>
+<path d="M836 377.6C836 437.6 860.0 452 884 452C908.0 452 932 437.6 932 377.6Z" opacity="0.6"/>
+<ellipse cx="884" cy="377.6" rx="48" ry="9.600000000000001" opacity="0.6"/>
+<ellipse cx="884" cy="379.04" rx="35.519999999999996" ry="6.24" stroke-width="1.2" opacity="0.36"/>
+<path d="M864.8 452 v5.76 h38.400000000000006 v-5.76" opacity="0.6"/>
+<ellipse class="ripple" cx="567" cy="293" rx="40" ry="7" stroke-width="1"/><ellipse class="ripple r2" cx="567" cy="293" rx="40" ry="7" stroke-width="1"/>
+<g class="wisp w1"><path d="M566 250C548 220 584 196 566 160C556 138 574 120 568 96" stroke-width="1.4" opacity=".6"/></g>
+<g class="wisp w2"><path d="M600 250C582 220 618 196 600 160C590 138 608 120 602 96" stroke-width="1.4" opacity=".6"/></g>
+<g class="wisp w3"><path d="M540 250C522 220 558 196 540 160C530 138 548 120 542 96" stroke-width="1.4" opacity=".6"/></g>
+<g class="wisp w4"><path d="M740 316C728 292 752 276 740 252C734 236 746 226 742 208" stroke-width="1.1" opacity=".4"/></g>
+<g class="wisp w5"><path d="M884 352C874 332 894 318 884 298C880 284 889 276 886 262" stroke-width="1" opacity=".3"/></g>
+</svg>

@@ -1,0 +1,157 @@
+.legend {
+  position: relative;
+  overflow: clip;
+  background: var(--leaf-800);
+}
+/* The ripple disc, turning slowly behind the copy. Offsets are fractions of the art frame, never of the section,
+   so on wide screens it stays beside the text instead of drifting off. */
+.legend__seal {
+  --s: min(560px, 52vw);
+  position: absolute;
+  pointer-events: none;
+  inline-size: var(--s);
+  aspect-ratio: 1;
+  left: calc(50% - var(--art) * 0.67);
+  top: calc(var(--s) * -0.2);
+  background: url("/art/ripples.svg") center/contain no-repeat;
+  opacity: 0.14;
+  animation: legend-spin 120s linear infinite;
+}
+@keyframes legend-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+@media (max-width: 939px) {
+  .legend__seal {
+    --s: min(420px, 86vw);
+    left: calc(50% - var(--art) * 0.62);
+    top: calc(var(--s) * -0.12);
+    opacity: 0.1;
+  }
+}
+.legend .shell {
+  position: relative;
+  z-index: 1;
+}
+.legend__grid {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 5rem);
+}
+@media (min-width: 940px) {
+  .legend__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+.legend h2 {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: var(--t-h2);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--matcha-300);
+  margin-bottom: 0.3em;
+}
+.legend__sub {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--cream);
+  margin-bottom: 1.8rem;
+  letter-spacing: 0.01em;
+}
+.legend blockquote {
+  margin: 2rem 0 0;
+  padding-left: 1.4rem;
+  border-left: 2px solid var(--amber-400);
+  font-size: var(--t-lede);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--amber-200);
+  line-height: 1.55;
+}
+
+.timeline {
+  list-style: none;
+}
+.timeline li {
+  position: relative;
+  padding: 0 0 2.2rem 2.6rem;
+  border-left: 1px solid rgba(195, 217, 140, 0.3);
+}
+.timeline li:last-child {
+  border-left-color: transparent;
+  padding-bottom: 0;
+}
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: 0.55rem;
+  inline-size: 9px;
+  block-size: 9px;
+  rotate: 45deg;
+  background: var(--leaf-800);
+  border: 1px solid var(--matcha-400);
+}
+.timeline li[data-now]::before {
+  background: var(--amber-300);
+  border-color: var(--amber-300);
+}
+.timeline h3 {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: 1.22rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  margin-bottom: 0.35rem;
+}
+.timeline p {
+  margin: 0;
+  color: var(--cream-faint);
+  font-size: 0.97rem;
+  line-height: 1.65;
+}
+
+.legend__sources {
+  margin: 2.4rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: var(--cream-faint);
+}
+.legend__sources a {
+  color: var(--matcha-200);
+}
+
+/* A sibling of .shell, not a child: the drawing is plain strokes, so there is no blend mode to protect, but it
+   keeps the same width as the columns above. */
+.legend__scene {
+  position: relative;
+  inline-size: var(--shell);
+  margin: clamp(2.8rem, 7vw, 4.5rem) auto 0;
+}
+.legend__scene img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+.legend__scene figcaption {
+  margin-top: 1.1rem;
+  text-align: center;
+  font-size: 0.84rem;
+  line-height: 1.7;
+  color: var(--matcha-200);
+  text-wrap: balance;
+}
+.legend__scene figcaption .dim {
+  display: block;
+  font-size: 0.8rem;
+}
+
+@media (prefers-contrast: more) {
+  .legend__seal {
+    opacity: 0.28;
+  }
+}

@@ -1,0 +1,95 @@
+.manners {
+  background: var(--leaf-900);
+  border-bottom: 1px solid rgba(195, 217, 140, 0.2);
+}
+.manners__head {
+  max-width: 40rem;
+  margin-bottom: clamp(2.4rem, 5vw, 3.6rem);
+}
+.manners h2 {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: var(--t-h2);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 0.3em;
+}
+/* Short headings leave a wide gap on desktop, so the pouring drawing fills it. Decorative, and only where the gap exists. */
+.manners .head-art {
+  display: none;
+}
+@media (min-width: 1080px) {
+  .manners__head {
+    max-width: none;
+    display: grid;
+    align-items: center;
+    grid-template-columns: minmax(0, 40rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+  .manners .head-art {
+    display: block;
+    justify-self: end;
+    inline-size: 100%;
+    max-inline-size: 440px;
+    block-size: auto;
+    opacity: 0.8;
+  }
+}
+.manners__list {
+  list-style: none;
+  display: grid;
+  gap: 1px;
+  background: rgba(195, 217, 140, 0.22);
+  border: 1px solid rgba(195, 217, 140, 0.22);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+@media (min-width: 700px) {
+  .manners__list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 1080px) {
+  .manners__list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.manners__list li {
+  background: var(--leaf-800);
+  padding: clamp(1.5rem, 3vw, 2.1rem);
+  transition: background-color 0.25s var(--ease);
+}
+.manners__list li:hover {
+  background: var(--leaf-700);
+}
+.manners__list h3 {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: 1.34rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--matcha-300);
+  margin-bottom: 0.35rem;
+}
+.manners__list .gloss {
+  display: block;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--cream-faint);
+  margin-bottom: 0.9rem;
+}
+.manners__list p {
+  font-size: 0.95rem;
+  color: var(--cream-dim);
+  line-height: 1.68;
+}
+.manners__sources {
+  margin: 1.6rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: var(--cream-faint);
+}
+.manners__sources a {
+  color: var(--matcha-200);
+}

@@ -1,0 +1,594 @@
+.tray-section {
+  background: radial-gradient(80% 60% at 50% 0%, var(--leaf-700) 0%, transparent 70%), var(--leaf-900);
+  border-block: 1px solid rgba(195, 217, 140, 0.2);
+}
+.tray-head {
+  max-width: 44rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+.tray-head h2 {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: var(--t-h2);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 0.5em;
+  text-wrap: balance;
+}
+.head-art {
+  display: none;
+}
+@media (min-width: 1080px) {
+  .tray-head {
+    max-width: none;
+    display: grid;
+    align-items: center;
+    grid-template-columns: minmax(0, 44rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+  .head-art {
+    display: block;
+    justify-self: end;
+    inline-size: 100%;
+    max-inline-size: 420px;
+    block-size: auto;
+    opacity: 0.8;
+  }
+}
+@media (max-width: 430px) {
+  .br-wide {
+    display: none;
+  }
+}
+
+.tray-layout {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+@media (min-width: 960px) {
+  .tray-layout {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+}
+
+/* --- the tray ------------------------------------------------------------ */
+.tray {
+  --ring-rot: 0deg;
+  position: relative;
+  inline-size: min(100%, 560px);
+  aspect-ratio: 1;
+  margin-inline: auto;
+  cursor: grab;
+  /* pan-y keeps vertical page scrolling alive on touch; user-select off stops native drags hijacking the pointer. */
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  /* Cup diameter is a % of the tray, so the orbit is expressed in cup-heights and the whole widget scales with no JS. */
+  --dish-size: 19%;
+  --orbit: -189.5%;
+}
+.tray__plate {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--leaf-700) 0%, var(--leaf-900) 72%, #060d09 100%);
+  box-shadow:
+    0 0 0 1px rgba(195, 217, 140, 0.35),
+    0 0 0 12px rgba(195, 217, 140, 0.07),
+    0 40px 90px -30px rgba(0, 0, 0, 0.85);
+}
+/* Rotating a square grows its bounding box; clipping the moving parts keeps the layout honest. */
+.tray__clip {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: clip;
+}
+.tray__engraving {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: url("/art/ripples.svg") center/contain no-repeat;
+  mix-blend-mode: screen;
+  opacity: 0.7;
+  rotate: var(--ring-rot);
+  transition: rotate 1s var(--ease-spin);
+}
+/* A clean medallion so the centre label always has a legible field. */
+.tray__glow {
+  position: absolute;
+  inset: 24%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(195, 217, 140, 0.18), transparent 72%),
+    radial-gradient(
+      circle at 40% 32%,
+      rgba(37, 81, 58, 0.97) 0%,
+      rgba(20, 41, 28, 0.95) 62%,
+      rgba(12, 26, 18, 0.7) 92%,
+      rgba(12, 26, 18, 0.35) 100%
+    );
+  box-shadow:
+    0 0 0 1px rgba(195, 217, 140, 0.4),
+    0 0 0 6px rgba(195, 217, 140, 0.08),
+    0 0 40px 16px rgba(12, 26, 18, 0.7);
+  pointer-events: none;
+}
+/* A flex column is bounded by the medallion, so long names wrap inside it. */
+.tray__label {
+  position: absolute;
+  inset: 24%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  pointer-events: none;
+  padding: 0.6rem;
+}
+.tray__label > * {
+  max-inline-size: 100%;
+}
+.tray__label-vi {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: clamp(1.05rem, 2.7vw, 2rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.98;
+  color: var(--matcha-300);
+  text-wrap: balance;
+}
+.tray__label-en {
+  margin-top: 0.55rem;
+  font-size: clamp(0.6rem, 1.1vw, 0.72rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: var(--cream-faint);
+  text-wrap: balance;
+}
+@media (max-width: 430px) {
+  .tray__label {
+    inset: 21%;
+    padding: 0.4rem;
+  }
+  .tray__label-en {
+    letter-spacing: 0.1em;
+    font-size: 0.66rem;
+    margin-top: 0.45rem;
+  }
+}
+
+/* --- the ring of cups ------------------------------------------------------ */
+.tray__ring {
+  position: absolute;
+  inset: 0;
+  rotate: var(--ring-rot);
+  transition: rotate 1s var(--ease-spin);
+}
+.tray.is-dragging {
+  cursor: grabbing;
+}
+.tray.is-dragging .tray__ring,
+.tray.is-dragging .tray__engraving,
+.tray.is-dragging .dish__inner {
+  transition: none;
+}
+.tray.is-dragging .dish__inner img {
+  pointer-events: none;
+}
+.dish {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  inline-size: var(--dish-size);
+  aspect-ratio: 1;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  /* translate → rotate → transform: rotate about the centre, then walk out along the ray. */
+  translate: -50% -50%;
+  rotate: var(--a);
+  transform: translateY(var(--orbit));
+}
+/* The wrapper undoes the tray's spin; the cup inside undoes this cup's own placement angle, so the glint stays put. */
+.dish__inner {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  rotate: calc(-1 * var(--ring-rot));
+  transition:
+    rotate 1s var(--ease-spin),
+    scale 0.3s var(--ease);
+  /* Shadows fall radially outward, as if one lamp hung over the middle of the tray. */
+  box-shadow:
+    0 0 0 1px rgba(195, 217, 140, 0.3),
+    0 -2px 4px -1px rgba(4, 10, 6, 0.55),
+    0 -9px 18px -5px rgba(4, 10, 6, 0.45);
+  overflow: hidden;
+  background: var(--liquor, var(--leaf-800));
+}
+.dish__inner img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  -webkit-user-drag: none;
+  rotate: calc(-1 * var(--a));
+  filter: saturate(1.02) brightness(0.94);
+  transition: filter 0.3s var(--ease);
+}
+.dish:hover .dish__inner {
+  scale: 1.07;
+}
+.dish:hover .dish__inner img {
+  filter: saturate(1.12) brightness(1.06);
+}
+.dish[aria-selected="true"] .dish__inner {
+  scale: 1.18;
+  box-shadow:
+    0 0 0 2px var(--matcha-300),
+    0 0 0 9px rgba(195, 217, 140, 0.16),
+    0 -3px 6px -1px rgba(4, 10, 6, 0.6),
+    0 -12px 24px -6px rgba(4, 10, 6, 0.5);
+}
+.dish[aria-selected="true"] .dish__inner img {
+  filter: saturate(1.16) brightness(1.1);
+}
+.dish:focus-visible {
+  outline: none;
+}
+.dish:focus-visible .dish__inner {
+  outline: 3px solid var(--matcha-200);
+  outline-offset: 5px;
+}
+
+.tray__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.9rem clamp(0.7rem, 2vw, 1.1rem);
+  margin-top: 1.6rem;
+}
+.spin {
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(195, 217, 140, 0.45);
+  border-radius: 50%;
+  color: var(--matcha-200);
+  transition:
+    background-color 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    scale 0.12s var(--ease);
+}
+.spin:hover {
+  background: rgba(195, 217, 140, 0.14);
+  border-color: var(--matcha-300);
+}
+.spin:active {
+  scale: 0.93;
+}
+.spin svg {
+  display: block;
+  inline-size: 1.05rem;
+  block-size: 1.05rem;
+}
+.tray__hint {
+  margin: 0;
+  text-align: center;
+  text-wrap: balance;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+}
+/* The hint is long; when the row is short of ~480px, stack the two buttons as a pair with the hint below. */
+@media (max-width: 585px), (min-width: 960px) and (max-width: 1099px) {
+  .tray__hint {
+    flex: 0 0 100%;
+    order: 1;
+  }
+  .tray__controls .spin {
+    order: 0;
+  }
+}
+
+/* --- the detail panel ------------------------------------------------------ */
+/* On wide screens every panel is stacked in one grid cell, so the box is always as tall as the tallest and
+   switching teas never resizes the card or shifts the tray. Narrower, only the active panel takes space. */
+.dish-panel[data-active="false"] {
+  display: none;
+}
+@media (min-width: 960px) {
+  .dish-panels {
+    display: grid;
+  }
+  .dish-panel {
+    grid-area: 1 / 1;
+  }
+  .dish-panel {
+    transition:
+      opacity 0.3s var(--ease),
+      visibility 0s linear 0.3s;
+  }
+  .dish-panel[data-active="false"] {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+  }
+  .dish-panel[data-active="true"] {
+    transition-delay: 0s;
+  }
+}
+.dish-panel {
+  --pad: clamp(1.6rem, 3.4vw, 2.6rem);
+  border: 1px solid rgba(195, 217, 140, 0.26);
+  border-radius: var(--radius);
+  background: linear-gradient(155deg, rgba(47, 106, 75, 0.4), rgba(12, 26, 18, 0.72));
+  padding: var(--pad);
+  overflow: hidden;
+}
+.dish-panel:focus-visible {
+  outline-offset: 6px;
+}
+/* A full-bleed photograph of the chosen tea, bled to the panel edge so it is the largest thing on screen. */
+.dish-panel__figure {
+  margin: calc(-1 * var(--pad)) calc(-1 * var(--pad)) clamp(1.4rem, 2.6vw, 1.9rem);
+  position: relative;
+  aspect-ratio: 3/2;
+  overflow: hidden;
+  background: var(--liquor, var(--leaf-900));
+}
+.dish-panel__figure img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Eases the photo into the panel, and gives the credit line a dark ground to sit on. */
+.dish-panel__figure::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px 0;
+  block-size: 38%;
+  background: linear-gradient(to bottom, transparent, rgba(12, 26, 18, 0.78));
+  pointer-events: none;
+}
+.dish-panel__figure figcaption {
+  position: absolute;
+  z-index: 1;
+  inset: auto 0.9rem 0.55rem auto;
+  font-size: 0.64rem;
+  letter-spacing: 0.04em;
+  color: rgba(242, 240, 224, 0.78);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+.dish-panel__figure figcaption a {
+  color: inherit;
+  text-decoration-color: rgba(242, 240, 224, 0.4);
+}
+.dish-panel__figure figcaption a:hover {
+  color: var(--matcha-200);
+}
+.dish-panel__index {
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--matcha-400);
+  margin-bottom: 1rem;
+}
+.dish-panel h3 {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: clamp(2rem, 4.6vw, 3.1rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--matcha-300);
+  line-height: 0.92;
+  margin-bottom: 0.3em;
+  text-wrap: balance;
+}
+.dish-panel__en {
+  font-size: 1.02rem;
+  font-weight: 500;
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+}
+.dish-panel__note {
+  margin-bottom: 1.75rem;
+}
+.dish-facts {
+  position: relative;
+  display: grid;
+  gap: 1.1rem;
+  padding-top: 1.5rem;
+}
+.dish-facts::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  block-size: 1px;
+  background: rgba(195, 217, 140, 0.22);
+  transform-origin: left;
+}
+@media (min-width: 520px) {
+  .dish-facts {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem;
+  }
+}
+.dish-facts dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--matcha-400);
+  margin-bottom: 0.4rem;
+}
+.dish-facts dd {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: var(--cream-dim);
+}
+
+/* Beside the tray the panel should read in one screenful, so the plate is sized against viewport height. */
+@media (min-width: 960px) {
+  .dish-panel {
+    --pad: clamp(1.25rem, 2.1vw, 1.75rem);
+  }
+  .dish-panel__figure {
+    aspect-ratio: auto;
+    block-size: clamp(170px, 26svh, 330px);
+    margin-bottom: clamp(0.9rem, 1.5vw, 1.25rem);
+  }
+  .dish-panel__index {
+    margin-bottom: 0.75rem;
+  }
+  .dish-panel h3 {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  }
+  .dish-panel__en {
+    margin-bottom: 1.05rem;
+  }
+  .dish-panel__note {
+    font-size: 0.96rem;
+    line-height: 1.62;
+    margin-bottom: 1.2rem;
+  }
+  .dish-facts {
+    padding-top: 1.05rem;
+    gap: 0.85rem 1.6rem;
+  }
+  .dish-facts dt {
+    margin-bottom: 0.28rem;
+  }
+  .dish-facts dd {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+}
+@media (min-width: 960px) and (max-height: 830px) {
+  .dish-panel__figure {
+    block-size: clamp(140px, 19svh, 210px);
+  }
+  .dish-panel__note {
+    font-size: 0.93rem;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+  .dish-panel__en {
+    margin-bottom: 0.85rem;
+  }
+  .dish-facts {
+    padding-top: 0.9rem;
+    gap: 0.7rem 1.5rem;
+  }
+}
+
+/* --- entrance choreography -------------------------------------------------
+   Runs whenever a panel becomes the active one: the photo is wiped open and settles from a slight zoom, then the
+   copy rises in one line at a time, un-blurring as it goes, and the rule above the facts draws itself.
+   Before the section first scrolls into view everything waits invisibly, so the first reveal is seen too. */
+@keyframes panel-rise {
+  from {
+    opacity: 0;
+    translate: 0 18px;
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: blur(0);
+  }
+}
+@keyframes figure-wipe {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes photo-settle {
+  from {
+    scale: 1.18;
+  }
+  to {
+    scale: 1;
+  }
+}
+@keyframes rule-draw {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+.tray-layout:not([data-seen="true"]) .dish-panel > *,
+.tray-layout:not([data-seen="true"]) .dish-facts > div {
+  opacity: 0;
+}
+
+.tray-layout[data-seen="true"] .dish-panel[data-active="true"] {
+  --d: 0ms;
+}
+.tray-layout[data-seen="true"] .dish-panel[data-active="true"] > :not(.dish-panel__figure) {
+  animation: panel-rise 0.75s var(--ease) both;
+  animation-delay: var(--d);
+}
+.tray-layout[data-seen="true"] .dish-panel[data-active="true"] > .dish-panel__figure {
+  animation: figure-wipe 0.9s var(--ease-spin) both;
+}
+.tray-layout[data-seen="true"] .dish-panel[data-active="true"] > .dish-panel__figure img {
+  animation: photo-settle 1.6s var(--ease) both;
+}
+.tray-layout[data-seen="true"] .dish-panel[data-active="true"] > .dish-panel__index {
+  --d: 260ms;
+}
+.tray-layout[data-seen="true"] .dish-panel[data-active="true"] > h3 {
+  --d: 340ms;
+}
+.tray-layout[data-seen="true"] .dish-panel[data-active="true"] > .dish-panel__en {
+  --d: 420ms;
+}
+.tray-layout[data-seen="true"] .dish-panel[data-active="true"] > .dish-panel__note {
+  --d: 500ms;
+}
+.tray-layout[data-seen="true"] .dish-panel[data-active="true"] > .dish-facts {
+  animation: none;
+  opacity: 1;
+}
+.tray-layout[data-seen="true"] .dish-panel[data-active="true"] .dish-facts::before {
+  animation: rule-draw 0.9s var(--ease) 580ms both;
+}
+.tray-layout[data-seen="true"] .dish-panel[data-active="true"] .dish-facts > div {
+  animation: panel-rise 0.7s var(--ease) both;
+  animation-delay: calc(640ms + var(--n, 0) * 90ms);
+}
+.dish-facts > div:nth-child(1) {
+  --n: 0;
+}
+.dish-facts > div:nth-child(2) {
+  --n: 1;
+}
+.dish-facts > div:nth-child(3) {
+  --n: 2;
+}
+.dish-facts > div:nth-child(4) {
+  --n: 3;
+}
+
+@media (prefers-contrast: more) {
+  .tray__engraving {
+    opacity: 0.9;
+  }
+}

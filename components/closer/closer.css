@@ -1,0 +1,124 @@
+.closer {
+  text-align: center;
+  position: relative;
+  overflow: clip;
+  background: radial-gradient(70% 90% at 50% 40%, var(--leaf-600), var(--leaf-900) 72%);
+}
+/* The ripple disc behind the greeting, turning the other way to the one in the hero. */
+.closer__ripples {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  inline-size: min(880px, 120%);
+  aspect-ratio: 1;
+  background: url("/art/ripples.svg") center/contain no-repeat;
+  mix-blend-mode: screen;
+  opacity: 0.16;
+  animation: closer-spin 68s linear infinite reverse;
+}
+@keyframes closer-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+/* The disc comes into focus as the section scrolls into view: oversized, blurred and almost invisible at first,
+   then sharpening into its resting weight. Driven by scroll position, not time, so it tracks the reader. The
+   timeline is declared on the section and named from the disc — a bare view() would measure the disc itself,
+   which only "enters" long after the section does. Browsers without support keep the resting state. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .closer {
+      view-timeline: --closer-view block;
+    }
+    .closer__ripples {
+      animation:
+        closer-spin 68s linear infinite reverse,
+        ripples-focus linear both;
+      animation-timeline: auto, --closer-view;
+      animation-range:
+        normal,
+        entry 20% contain 34%;
+      will-change: transform, filter, opacity;
+    }
+  }
+}
+@keyframes ripples-focus {
+  from {
+    scale: 1.7;
+    opacity: 0.03;
+    filter: blur(26px);
+  }
+  60% {
+    scale: 1.22;
+    opacity: 0.34;
+    filter: blur(8px);
+  }
+  to {
+    scale: 1;
+    opacity: 0.16;
+    filter: blur(0);
+  }
+}
+
+.closer .shell {
+  position: relative;
+  z-index: 1;
+}
+.closer h2 {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: clamp(3rem, 10vw, 7.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--matcha-300);
+  line-height: 0.9;
+  margin-bottom: 0.4em;
+}
+.closer__body {
+  max-width: 38rem;
+  margin-inline: auto;
+}
+.closer__body p {
+  margin-bottom: 1.25em;
+}
+.closer__punch {
+  font-size: var(--t-lede);
+  color: var(--cream);
+  font-weight: 400;
+  font-style: italic;
+}
+.rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: rgba(195, 217, 140, 0.45);
+  margin-block: clamp(2rem, 5vw, 3rem);
+}
+.rule::before,
+.rule::after {
+  content: "";
+  height: 1px;
+  flex: 1 1 0;
+  background: linear-gradient(90deg, transparent, rgba(195, 217, 140, 0.45), transparent);
+}
+.rule__mark {
+  inline-size: 9px;
+  block-size: 9px;
+  rotate: 45deg;
+  border: 1px solid currentColor;
+  flex: none;
+}
+/* The last image on the page: the tray the whole thing is about. A sibling of .shell so it is not isolated by
+   the stacking context .shell creates. */
+.closer__tray {
+  position: relative;
+  z-index: 1;
+  display: block;
+  inline-size: min(520px, 86%);
+  block-size: auto;
+  margin: clamp(2.2rem, 5vw, 3.8rem) auto 0;
+  opacity: 0.92;
+}

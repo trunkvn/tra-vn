@@ -1,0 +1,198 @@
+/* The one light section, so the page breathes: cream paper with leaf-green type. */
+.brew {
+  background: var(--cream);
+  color: var(--ink);
+  position: relative;
+}
+.brew .kicker {
+  color: var(--leaf-500);
+}
+.brew .kicker::before {
+  background: linear-gradient(90deg, transparent, var(--leaf-500));
+}
+.brew a {
+  color: var(--leaf-600);
+}
+.brew .wl:hover,
+.brew a:hover {
+  color: var(--leaf-500);
+}
+.brew .wl:focus-visible,
+.brew :focus-visible {
+  outline-color: var(--leaf-600);
+}
+.brew h2 {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: var(--t-h2);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--leaf-700);
+  margin-bottom: 0.25em;
+}
+.brew h2 .wl {
+  color: inherit;
+}
+.brew__sub {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #4a5a3c;
+  margin-bottom: 1.2rem;
+}
+.brew__intro {
+  max-width: 38rem;
+  color: #26332a;
+}
+/* Says out loud that one brew out of seven is a choice, not an omission. */
+.brew__pick {
+  max-width: 38rem;
+  margin: 0 0 1.1em;
+  font-size: var(--t-lede);
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--leaf-700);
+}
+.brew__head {
+  display: grid;
+  gap: clamp(1.8rem, 4vw, 3rem);
+  align-items: start;
+  margin-bottom: clamp(2.4rem, 5vw, 3.6rem);
+}
+@media (min-width: 840px) {
+  .brew__head {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  }
+}
+.brew__photo {
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  box-shadow:
+    0 0 0 1px rgba(28, 58, 40, 0.2),
+    0 26px 50px -26px rgba(12, 26, 18, 0.55);
+}
+.brew__photo img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+.brew__credit {
+  margin-top: 0.7rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #5d6b52;
+}
+.brew__grid {
+  display: grid;
+  gap: clamp(2.2rem, 5vw, 3.6rem);
+}
+@media (min-width: 900px) {
+  .brew__grid {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  }
+}
+.brew__col h3,
+.brew__col h4 {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: var(--t-h3);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--leaf-700);
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.3rem;
+  border-bottom: 1px solid rgba(28, 58, 40, 0.28);
+}
+
+.ingredients {
+  list-style: none;
+}
+.ingredients li {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.7rem 0;
+  border-bottom: 1px dashed rgba(10, 20, 13, 0.18);
+  font-size: 0.98rem;
+}
+.ingredients li:last-child {
+  border-bottom: 0;
+}
+.ingredients .qty {
+  flex: none;
+  min-inline-size: 4.6rem;
+  font-weight: 600;
+  color: var(--leaf-600);
+}
+.brew__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  margin-top: 1.8rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(28, 58, 40, 0.28);
+}
+.brew__meta div {
+  min-inline-size: 6rem;
+}
+.brew__meta dt {
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #4a5a3c;
+  margin-bottom: 0.25rem;
+}
+.brew__meta dd {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.steps {
+  list-style: none;
+  counter-reset: s;
+}
+.steps li {
+  counter-increment: s;
+  position: relative;
+  padding: 0 0 1.7rem 3.4rem;
+}
+.steps li::before {
+  content: counter(s, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: -0.15rem;
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--leaf-500);
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+}
+.steps li:last-child {
+  padding-bottom: 0;
+}
+.steps strong {
+  color: var(--leaf-700);
+  font-weight: 600;
+}
+.steps p {
+  margin: 0;
+  color: #26332a;
+  font-size: 0.99rem;
+  line-height: 1.7;
+}
+.aside-note {
+  margin-top: 2rem;
+  padding: 1.2rem 1.4rem;
+  background: rgba(47, 106, 75, 0.1);
+  border-left: 3px solid var(--leaf-500);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 0.94rem;
+  color: #1f4a33;
+}
+.aside-note b {
+  color: var(--leaf-500);
+}

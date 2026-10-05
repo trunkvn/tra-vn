@@ -1,0 +1,169 @@
+.feast {
+  background: var(--leaf-900);
+  border-block: 1px solid rgba(195, 217, 140, 0.2);
+}
+/* The 3D tea tray. A canvas is added at runtime; until it is ready (or if WebGL is unavailable) the flat drawing
+   of the same tray stays in view. */
+.feast__stage {
+  position: relative;
+  isolation: isolate;
+  inline-size: 100%;
+  block-size: clamp(420px, 54vw, 640px);
+  overflow: hidden;
+  background: radial-gradient(60% 80% at 50% 46%, var(--leaf-700), var(--leaf-900) 78%);
+}
+.feast__stage::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 52%;
+  translate: -50% -50%;
+  inline-size: min(980px, 130%);
+  aspect-ratio: 1;
+  background: url("/art/ripples.svg") center/contain no-repeat;
+  opacity: 0.1;
+  animation: feast-spin 150s linear infinite;
+}
+@keyframes feast-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+.feast__poster {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  inline-size: min(440px, 62%);
+  block-size: auto;
+  opacity: 0.4;
+  transition: opacity 0.6s var(--ease);
+}
+.feast__poster[data-ready="true"] {
+  opacity: 0;
+}
+.feast__canvas {
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+  touch-action: pan-y;
+  outline-offset: -6px;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+}
+.feast__canvas[data-ready="true"] {
+  opacity: 1;
+}
+.feast__label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 8px;
+  background: rgba(12, 26, 18, 0.82);
+  border: 1px solid rgba(195, 217, 140, 0.4);
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.2s var(--ease);
+}
+.feast__label [data-vi] {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--matcha-300);
+}
+.feast__label [data-en] {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+}
+.feast__hint {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 1.1rem;
+  margin: 0;
+  text-align: center;
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+  pointer-events: none;
+}
+/* Fade the base of the stage into the copy band so the two read as one piece. */
+.feast__stage::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: auto 0 -1px 0;
+  block-size: 18%;
+  background: linear-gradient(to bottom, transparent, var(--leaf-900));
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .feast__stage::before {
+    animation: none;
+  }
+}
+.feast__body {
+  width: var(--shell);
+  margin-inline: auto;
+  padding-block: clamp(2.6rem, 5.5vw, 4rem) clamp(2.6rem, 6vw, 4.5rem);
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+}
+@media (min-width: 900px) {
+  .feast__body {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+.feast__cap {
+  grid-column: 1/-1;
+  margin: 0 0 0.4rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+}
+.feast h2 {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: var(--t-h2);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 0.4em;
+  text-wrap: balance;
+}
+.feast__count {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1.7rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(195, 217, 140, 0.3);
+  font-size: 0.73rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--matcha-300);
+  list-style: none;
+}
+@media (max-width: 430px) {
+  .br-wide {
+    display: none;
+  }
+}
