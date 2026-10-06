@@ -5,10 +5,10 @@ import { useEffect, useRef } from "react";
 import "./masthead.css";
 
 const links = [
-  { href: "#leaves", the: true, label: "Leaves" },
-  { href: "#legend", the: true, label: "Legend" },
-  { href: "#brew", the: true, label: "Brew" },
-  { href: "#manners", the: false, label: "Lễ Nghi" },
+  { href: "#leaves", label: "Lá Trà" },
+  { href: "#legend", label: "Sự Tích" },
+  { href: "#brew", label: "Pha Trà" },
+  { href: "#manners", label: "Lễ Nghi" },
 ];
 
 function useScrollSpy(
@@ -87,7 +87,7 @@ export default function Masthead() {
   return (
     <header className="masthead">
       <div className="masthead__inner" ref={barRef}>
-        <a className="brand" href="#top" aria-label="Ấm Trà — back to top">
+        <a className="brand" href="#top" aria-label="Ấm Trà — về đầu trang">
           {/* a cup seen from above, with one leaf floating in it */}
           <svg className="brand__mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
             <g fill="none" stroke="currentColor" strokeWidth="4">
@@ -99,10 +99,9 @@ export default function Masthead() {
           </svg>
           <span className="brand__word">Ấm Trà</span>
         </a>
-        <nav className="nav" aria-label="Sections" ref={navRef}>
+        <nav className="nav" aria-label="Các phần" ref={navRef}>
           {links.map((l) => (
             <a key={l.href} href={l.href}>
-              {l.the && <span className="nav__the">The </span>}
               {l.label}
             </a>
           ))}

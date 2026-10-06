@@ -183,9 +183,6 @@
 }
 
 @media (max-width: 600px) {
-  .nav__the {
-    display: none;
-  }
   .nav {
     gap: 0.85rem;
   }
