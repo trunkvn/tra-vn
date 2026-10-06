@@ -33,7 +33,7 @@ Requires Node.js 20 or newer.
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
+npm run dev        # http://localhost:3001
 npm run build      # production build
 npm run start      # serve the production build
 npm run lint

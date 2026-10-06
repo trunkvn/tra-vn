@@ -592,3 +592,9 @@
     opacity: 0.9;
   }
 }
+
+/* Tea names in the intro stand out from the dimmed body copy. */
+.tea-name {
+  color: var(--amber-300);
+  font-weight: 600;
+}

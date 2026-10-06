@@ -1,14 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./masthead.css";
 
 const links = [
-  { href: "#leaves", label: "Lá Trà" },
-  { href: "#legend", label: "Sự Tích" },
-  { href: "#brew", label: "Pha Trà" },
-  { href: "#manners", label: "Lễ Nghi" },
+  { href: "#leaves", label: "Lá Trà", en: "The Leaves" },
+  { href: "#legend", label: "Sự Tích", en: "The Legend" },
+  { href: "#brew", label: "Pha Trà", en: "The Brew" },
+  { href: "#manners", label: "Lễ Nghi", en: "Manners" },
 ];
 
 function useScrollSpy(
@@ -83,6 +83,16 @@ export default function Masthead() {
   const navRef = useRef<HTMLElement>(null);
   const cloudRef = useRef<HTMLSpanElement>(null);
   useScrollSpy(barRef, navRef, cloudRef);
+  const [tip, setTip] = useState({ text: "", x: 0, show: false });
+
+  // The nav scrolls (overflow clips children), so the tooltip lives outside it, positioned from the hovered link.
+  function showTip(el: HTMLAnchorElement, text: string) {
+    const bar = barRef.current;
+    if (!bar) return;
+    const link = el.getBoundingClientRect();
+    const base = bar.getBoundingClientRect();
+    setTip({ text, x: link.left - base.left + link.width / 2, show: true });
+  }
 
   return (
     <header className="masthead">
@@ -101,12 +111,22 @@ export default function Masthead() {
         </a>
         <nav className="nav" aria-label="Các phần" ref={navRef}>
           {links.map((l) => (
-            <a key={l.href} href={l.href}>
+            <a
+              key={l.href}
+              href={l.href}
+              onMouseEnter={(e) => showTip(e.currentTarget, l.en)}
+              onMouseLeave={() => setTip((t) => ({ ...t, show: false }))}
+              onFocus={(e) => showTip(e.currentTarget, l.en)}
+              onBlur={() => setTip((t) => ({ ...t, show: false }))}
+            >
               {l.label}
             </a>
           ))}
         </nav>
         <span className="nav__cloud" aria-hidden="true" ref={cloudRef} />
+        <span className="nav__tip" aria-hidden="true" data-show={tip.show} style={{ left: tip.x }}>
+          {tip.text}
+        </span>
         <a className="plaque" href="#closer">
           <span className="plaque__face">
             <Image className="plaque__sprig" src="/art/sprig-tea.svg" alt="" width={120} height={120} aria-hidden="true" unoptimized />

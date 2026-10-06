@@ -5,9 +5,9 @@ import "./loader.css";
 
 type Phase = "loading" | "leaving" | "done";
 
-// Long enough to see the teapot drawn, short enough not to stand between a visitor and the page.
-const MIN_MS = 1900;
-const MIN_MS_REDUCED = 500;
+// Long enough to see the teapot drawn and read the disclaimer, short enough not to stand between a visitor and the page.
+const MIN_MS = 4000;
+const MIN_MS_REDUCED = 3000;
 const MAX_MS = 6000;
 const LEAVE_MS = 800;
 
@@ -83,6 +83,10 @@ export default function Loader() {
         <p className="loader__line">Đang pha trà · steeping</p>
         <span className="loader__bar"><i /></span>
       </div>
+      <p className="loader__note">
+        <span lang="vi">Thông tin trên trang mang tính tham khảo và có thể chưa hoàn toàn chính xác.</span>
+        <span lang="en">Information on this page is for reference only and may not be fully accurate.</span>
+      </p>
     </div>
   );
 }

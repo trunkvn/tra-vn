@@ -75,6 +75,27 @@
   color: var(--matcha-200);
 }
 
+/* English gloss shown under the hovered link; sits outside .nav so its scroll clipping can't cut it off. */
+.nav__tip {
+  position: absolute;
+  top: calc(100% - 6px);
+  translate: -50% 0;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid rgba(195, 217, 140, 0.3);
+  border-radius: 6px;
+  background: var(--leaf-900);
+  color: var(--cream);
+  font-size: 0.78rem;
+  font-style: italic;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s var(--ease);
+}
+.nav__tip[data-show="true"] {
+  opacity: 1;
+}
+
 /* One cloud for the whole nav, positioned by JS, that rides to the current section. */
 .nav__cloud {
   position: absolute;

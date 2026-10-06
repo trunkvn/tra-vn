@@ -237,10 +237,14 @@ export default function Leaves() {
               <br className="br-wide" /> on a circle
             </h2>
             <p className="lede dim">
-              Seven teas, from the wild Shan trees and aged <span lang="vi">trà mạn</span> of the northern mountains to
-              the green tea of Thái Nguyên, the lotus and jasmine teas scented in Hà Nội, oolong from the southern
-              highlands and the black tea Việt Nam makes for export. Spin the tray. Whichever cup reaches the top is the
-              one to pour.
+              Seven teas, from the <b className="tea-name">wild Shan trees</b> and aged{" "}
+              <b className="tea-name" lang="vi">
+                trà mạn
+              </b>{" "}
+              of the northern mountains to the <b className="tea-name">green tea</b> of Thái Nguyên, the{" "}
+              <b className="tea-name">lotus</b> and <b className="tea-name">jasmine</b> teas scented in Hà Nội,{" "}
+              <b className="tea-name">oolong</b> from the southern highlands and the <b className="tea-name">black tea</b>{" "}
+              Việt Nam makes for export. Spin the tray. Whichever cup reaches the top is the one to pour.
             </p>
           </div>
           <Image className="head-art" src="/art/steam-flow.svg" alt="" width={420} height={183} aria-hidden="true" unoptimized />
