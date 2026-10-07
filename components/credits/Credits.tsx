@@ -53,6 +53,13 @@ export default function Credits() {
             .
           </p>
           <p>
+            <strong>Pronunciation</strong> The spellings in brackets are approximate respellings of a Hà Nội accent: <i>ah</i> as in
+            father, <i>uh</i> as in but, <i>ay</i> as in say, <i>aw</i> as in law, <i>ng</i> as in singer, <i>ny</i> as in canyon, <i>ch</i>{" "}
+            for <span lang="vi">tr</span>, <i>s</i> for <span lang="vi">x</span>, <i>z</i> for <span lang="vi">d</span>, <span lang="vi">gi</span> and{" "}
+            <span lang="vi">r</span>. They cannot show the tones, so press the speaker button and listen. The clips are made with a
+            computer voice.
+          </p>
+          <p>
             <strong>Music</strong> <span lang="vi">“’laxin”</span> (Lo Fi Background Music) by Kuromaru ft .hereafter, used under{" "}
             <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">
               CC&nbsp;BY&nbsp;3.0

@@ -1,0 +1,99 @@
+/* The speaker button borrows the colour of whatever it sits beside, so it works on both the dark and the cream sections. */
+.say {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  flex: none;
+  inline-size: 1.9rem;
+  block-size: 1.9rem;
+  margin-inline: 0.45em 0;
+  padding: 0;
+  vertical-align: middle;
+  border: 1px solid color-mix(in srgb, currentColor 38%, transparent);
+  border-radius: 999px;
+  color: inherit;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  line-height: 1;
+  transition:
+    background-color 0.18s var(--ease),
+    border-color 0.18s var(--ease);
+}
+/* a generous touch target without a big visible button */
+.say::after {
+  content: "";
+  position: absolute;
+  inset: -0.5rem;
+}
+.say svg {
+  inline-size: 1.15rem;
+  block-size: 1.15rem;
+  flex: none;
+}
+.say:hover {
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  border-color: color-mix(in srgb, currentColor 70%, transparent);
+}
+.say[data-size="sm"] {
+  inline-size: 1.55rem;
+  block-size: 1.55rem;
+  margin-inline-start: 0.3em;
+}
+.say[data-size="sm"] svg {
+  inline-size: 0.95rem;
+  block-size: 0.95rem;
+}
+.say[data-size="lg"] {
+  inline-size: 2.8rem;
+  block-size: 2.8rem;
+}
+.say[data-size="lg"] svg {
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+}
+.say:has(.say__caption) {
+  inline-size: auto;
+  padding-inline: 1rem 1.2rem;
+}
+.say[data-playing="true"] {
+  background: color-mix(in srgb, currentColor 18%, transparent);
+  border-color: currentColor;
+}
+.say__wave {
+  opacity: 0.55;
+}
+.say[data-playing="true"] .say__wave {
+  animation: say-wave 0.9s ease-in-out infinite;
+}
+.say[data-playing="true"] .say__wave--2 {
+  animation-delay: 0.25s;
+}
+@keyframes say-wave {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* the respelling that sits beside the button; plain body type so it reads the same in a heading or in prose */
+.say__pron {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  text-transform: none;
+  opacity: 0.85;
+}
+.say__pron[data-size="lg"] {
+  font-size: 1rem;
+}

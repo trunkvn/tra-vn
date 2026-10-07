@@ -96,6 +96,8 @@ The layout is inspired by [Mâm Cơm — the Vietnamese family rice tray](https:
 - **A teapot that draws itself.** The loading screen sketches a teapot line by line, lets steam rise and unfurls three leaves, then lifts like a curtain once the page and its fonts are ready. It carries a short bilingual note that the information may not be fully accurate.
 - **A steam "cloud" in the navigation.** One little cloud glides along the header to whichever section you are reading. Hover a nav item to see its English meaning.
 - **A tray you can spin.** Drag it, use the arrow keys, or click a cup. Each tea has its own card: where it grows, what it tastes like, how it is made.
+- **Brew along.** The Method turns into a guided, step-by-step mode: pick one of the seven teas and it shows how much leaf, how hot the water and how long to wait, walks you through the seven steps, then runs a 60–90 second countdown for the second water with rising steam and a soft chime (plus a vibration on phones). It keeps the screen awake and counts against the clock, so it holds up on a phone beside the kettle.
+- **Hear it said.** A small speaker button sits beside the Vietnamese tea names, the six manners, the four brewing gestures, the opening proverb and the "Mời trà!" greeting, because tones are hard to learn from spelling alone. Each plays a short pre-generated clip (`public/audio/vi/*.m4a`, made with `npm run audio`) so it sounds the same on every device; each also shows an approximate respelling for English readers, e.g. *Trà Xanh* (chah sang), kept in `components/speak/pronunciations.ts`. A phrase without a clip falls back to the device's own Vietnamese voice, and the button stays hidden where there is none.
 - **A real 3D tea set.** A celadon pot and seven cups rendered with three.js, loaded only when you scroll near it.
 - **Hand-drawn art.** The SVG illustrations are drawn from scratch and several animate with CSS inside the SVG file itself.
 - **Background music.** A gentle lo-fi track, off until you press play.
@@ -107,11 +109,12 @@ The layout is inspired by [Mâm Cơm — the Vietnamese family rice tray](https:
 |---|---|---|
 | Loader | `components/loader` | The self-drawing teapot loading screen |
 | Header | `components/masthead` | Logo, navigation with a steam "cloud" that glides to the section in view, the "Mời trà!" plaque |
+| Speak | `components/speak` | The speaker button (`Speak.tsx`) and the generated list of clips on disk (`recordings.ts`) |
 | Hero | `components/hero` | Title, animated teapot drawing, strip of the seven teas, music button |
 | Seven teas | `components/leaves` | A round tray you can spin (drag, arrow keys, click a cup) with a detail card for each tea |
 | A full tea tray | `components/feast` | An interactive 3D tea tray (three.js) |
 | Legend · Origins | `components/legend` | The history of tea in Việt Nam, with an animated drawing |
-| Brew | `components/brew` | The traditional way of brewing |
+| Brew | `components/brew` | The traditional way of brewing, plus the guided "Brew along" mode with a countdown timer (`BrewGuide.tsx`; per-tea amounts and temperatures in `guide-data.ts`) |
 | Manners | `components/manners` | Six rules for offering tea |
 | The greeting | `components/closer` | "Mời trà!" |
 | Footer | `components/credits` | A frieze that drifts sideways, plus photo and music credits |
@@ -142,6 +145,7 @@ npm run dev        # http://localhost:3001
 | `npm run build` | Production build |
 | `npm run start` | Serve the production build on port 3001 |
 | `npm run lint` | Lint with ESLint |
+| `npm run audio` | Make the pronunciation clips that are missing (macOS only); add `-- --force` to remake all |
 
 Measure performance on a `build` + `start`, never on `npm run dev`.
 
@@ -154,12 +158,20 @@ components/leaves/    teas.ts (the seven teas), credits.ts (photo credits)
 docs/screenshots/     the preview images used in this README
 public/art/           hand-drawn SVGs (several animate with CSS inside the SVG file itself)
 public/photos/        tea photographs
-public/audio/         the background track
+public/audio/         the background track; public/audio/vi/ holds the pronunciation clips (.m4a)
 public/fonts/         the self-hosted display font (Big Shoulders, SIL Open Font License)
 next.config.ts        cache headers for public/, allowed image qualities for next/image
 ```
 
+## Pronunciation clips
+
+`npm run audio` runs `scripts/generate-pronunciations.mjs`. It reads the list of phrases in that file, makes a clip for each one with the macOS Vietnamese voice (Linh, through `say` and `afconvert`) and rewrites `components/speak/recordings.ts` so the site knows which clips exist. To add a phrase, put a `<Speak text="…" />` button on the page, add the same phrase to the script and run it again; add its respelling to `components/speak/pronunciations.ts` too. The respellings are written by hand for a Hà Nội accent and are approximate — a native speaker should check them.
+
+The voice is a system text-to-speech voice, so it sounds synthetic. To use a native speaker instead, save their recording over the clip with the same file name (the script never overwrites an existing clip unless you pass `--force`), or swap `synthesize()` in the script for a cloud text-to-speech service. Check the licence of whichever voice you use before the site goes public.
+
 ## A note on accuracy
+
+The amounts, temperatures and wait times in "Brew along" are common rules of thumb for a small pot, not figures from the sources below; the guide says so on screen.
 
 The page is a cultural introduction, not an academic source. Its text is drawn from articles by tea sellers and the trade press, and dates before the 20th century are approximate. The loading screen says as much, in Vietnamese and in English. Corrections are welcome.
 

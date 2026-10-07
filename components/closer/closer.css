@@ -122,3 +122,13 @@
   margin: clamp(2.2rem, 5vw, 3.8rem) auto 0;
   opacity: 0.92;
 }
+
+/* the "hear it said" button sits under the greeting, centred */
+.closer__say {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0 0 1.6rem;
+  color: var(--matcha-300);
+}

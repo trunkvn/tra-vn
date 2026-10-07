@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { photoCredits } from "@/components/leaves/credits";
+import BrewGuide from "./BrewGuide";
+import { brewSteps } from "./steps";
 import "./brew.css";
 
 const tools: { label: string; text: React.ReactNode }[] = [
@@ -111,58 +113,16 @@ export default function Brew() {
 
           <div className="brew__col">
             <h4 id="method-title">Method</h4>
+            <BrewGuide />
+
             <ol className="steps" aria-labelledby="method-title">
-              <li>
-                <p>
-                  <strong>Warm the pot and the cups.</strong> Pour boiling water over both. It keeps the water inside
-                  the pot as hot as it can be for the whole brew.
-                </p>
-              </li>
-              <li>
-                <p>
-                  <strong>Add the tea.</strong> Scoop the dry leaf into the small clay pot with a wooden spoon — the old
-                  name for the gesture is <span lang="vi">Ngọc diệp hồi cung</span> — until it fills about a third of
-                  the pot.
-                </p>
-              </li>
-              <li>
-                <p>
-                  <strong>
-                    First water: <span lang="vi">Cao sơn trường thủy</span>.
-                  </strong>{" "}
-                  Pour a little boiling water down from a height, then strain it off at once and throw it away. It
-                  washes the dust from the leaf and lets the dry leaf sink instead of floating.
-                </p>
-              </li>
-              <li>
-                <p>
-                  <strong>
-                    Second water: <span lang="vi">Hạ sơn nhập thủy</span>.
-                  </strong>{" "}
-                  Pour from high again, right up until the water spills over the rim. Put the lid on so the foam runs
-                  off, then pour boiling water over the lid to keep the pot at its hottest.
-                </p>
-              </li>
-              <li>
-                <p>
-                  <strong>Wait.</strong> The second water is the best cup of the pot. Leave it 60 to 90 seconds — some
-                  writers say up to two minutes.
-                </p>
-              </li>
-              <li>
-                <p>
-                  <strong>Pour evenly.</strong> Set the cups rim to rim and sweep the spout round them in a circle, so
-                  every cup has the same strength. The classic way is to pour into the <span lang="vi">chén tống</span>{" "}
-                  first and share it among the <span lang="vi">chén quân</span> — slower, and less used now because the
-                  tea cools and the scent fades.
-                </p>
-              </li>
-              <li>
-                <p>
-                  <strong>Offer the cup.</strong> Hold it with the middle finger under the base and the forefinger and
-                  thumb at the rim — <span lang="vi">Tam long giá ngọc</span> — and bow a little as you hand it over.
-                </p>
-              </li>
+              {brewSteps.map((step, i) => (
+                <li key={i}>
+                  <p>
+                    <strong>{step.title}</strong> {step.body}
+                  </p>
+                </li>
+              ))}
             </ol>
 
             <p className="aside-note">

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import "./closer.css";
+import Speak from "@/components/speak/Speak";
 
 export default function Closer() {
   return (
@@ -12,6 +13,9 @@ export default function Closer() {
         <h2 id="closer-title" lang="vi">
           Mời trà!
         </h2>
+        <p className="closer__say">
+          <Speak text="Mời trà!" size="lg" caption="Hear it said" />
+        </p>
         <div className="closer__body">
           <p className="lede">“Please — have some tea.”</p>
           <p className="rule" aria-hidden="true">

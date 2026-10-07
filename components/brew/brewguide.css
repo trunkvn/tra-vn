@@ -1,0 +1,578 @@
+/* ── Entry card, inside the light Brew section ─────────────────────────── */
+.guide-cta {
+  display: grid;
+  gap: 1rem;
+  margin: 0 0 1.8rem;
+  padding: 1.2rem 1.4rem;
+  background: rgba(47, 106, 75, 0.1);
+  border: 1px solid rgba(28, 58, 40, 0.28);
+  border-radius: var(--radius);
+}
+.guide-cta__title {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--leaf-700);
+}
+.guide-cta__title span {
+  color: var(--leaf-500);
+}
+.guide-cta__text {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: #26332a;
+}
+.guide-cta__btn {
+  justify-self: start;
+  min-block-size: 48px;
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  background: var(--leaf-700);
+  color: var(--cream);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition:
+    background-color 0.2s var(--ease),
+    translate 0.2s var(--ease);
+}
+.guide-cta__btn:hover {
+  background: var(--leaf-600);
+  translate: 0 -2px;
+}
+.guide-cta__btn:focus-visible {
+  outline: 3px solid var(--leaf-600);
+  outline-offset: 3px;
+}
+
+/* ── The guide: a dark teahouse dialog, full screen on a phone ─────────── */
+body:has(.guide[open]) {
+  overflow: hidden;
+}
+.guide {
+  inline-size: min(680px, calc(100vw - 2rem));
+  max-inline-size: none;
+  max-block-size: none;
+  margin: auto;
+  padding: 0;
+  border: 1px solid rgba(195, 217, 140, 0.28);
+  border-radius: 22px;
+  background: radial-gradient(70% 60% at 50% 0%, var(--leaf-700), var(--leaf-900) 82%);
+  color: var(--cream);
+  overflow: hidden;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.8);
+}
+.guide::backdrop {
+  background: rgba(6, 14, 9, 0.74);
+  backdrop-filter: blur(4px);
+}
+.guide[open] {
+  animation: guide-in 0.32s var(--ease);
+}
+@keyframes guide-in {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+}
+.guide :focus-visible {
+  outline: 3px solid var(--matcha-300);
+  outline-offset: 3px;
+}
+.guide .sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.guide__frame {
+  display: flex;
+  flex-direction: column;
+  max-block-size: min(860px, calc(100dvh - 2rem));
+}
+@media (max-width: 640px) {
+  .guide {
+    inline-size: 100vw;
+    block-size: 100dvh;
+    max-block-size: none;
+    border: 0;
+    border-radius: 0;
+  }
+  .guide__frame {
+    block-size: 100dvh;
+    max-block-size: none;
+  }
+}
+
+.guide__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem 0.9rem 1.5rem;
+}
+.guide__where {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--matcha-300);
+}
+.guide__tools {
+  display: flex;
+  gap: 0.25rem;
+}
+.guide__icon {
+  display: grid;
+  place-items: center;
+  inline-size: 44px;
+  block-size: 44px;
+  border-radius: 50%;
+  color: var(--cream-dim);
+  transition:
+    background-color 0.18s var(--ease),
+    color 0.18s var(--ease);
+}
+.guide__icon:hover {
+  background: rgba(195, 217, 140, 0.14);
+  color: var(--cream);
+}
+.guide__icon[aria-pressed="false"] {
+  color: var(--cream-faint);
+}
+.guide__icon svg {
+  inline-size: 22px;
+  block-size: 22px;
+}
+.guide__track {
+  display: block;
+  block-size: 3px;
+  background: rgba(195, 217, 140, 0.16);
+}
+.guide__track i {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  background: var(--amber-400);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease);
+}
+
+.guide__main {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(1.4rem, 4vw, 2.2rem) clamp(1.25rem, 4vw, 2.2rem);
+}
+.guide .guide__title {
+  margin: 0 0 0.9rem;
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: clamp(2.1rem, 7vw, 3.1rem);
+  font-weight: 900;
+  line-height: 1.02;
+  text-transform: uppercase;
+  color: var(--matcha-300);
+}
+.guide .guide__title:focus {
+  outline: none;
+}
+.guide .guide__title--vi {
+  font-size: clamp(3rem, 12vw, 5rem);
+}
+.guide__lede {
+  margin: 0 0 1.6rem;
+  font-size: clamp(1.02rem, 0.4vw + 0.95rem, 1.2rem);
+  line-height: 1.6;
+  color: var(--cream);
+  font-weight: 300;
+}
+.guide__lede span[lang="vi"] {
+  font-style: italic;
+  color: var(--matcha-200);
+}
+.guide__tip {
+  margin: 0 0 1rem;
+  color: var(--cream-dim);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.guide__fine {
+  margin: 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(195, 217, 140, 0.18);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--cream-faint);
+}
+
+/* tea picker */
+.teapick {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10.4rem, 1fr));
+  gap: 0.6rem;
+  margin: 0 0 1.6rem;
+  padding: 0;
+  min-inline-size: 0;
+  border: 0;
+}
+.teapick__opt {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+.teapick__opt input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.teapick__card {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-block-size: 64px;
+  padding: 0.55rem 0.8rem 0.55rem 0.55rem;
+  border: 1px solid rgba(195, 217, 140, 0.22);
+  border-radius: 14px;
+  background: rgba(20, 41, 28, 0.6);
+  transition:
+    border-color 0.18s var(--ease),
+    background-color 0.18s var(--ease);
+}
+.teapick__card img {
+  flex: none;
+  inline-size: 48px;
+  block-size: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.teapick__card b {
+  display: block;
+  font-weight: 600;
+  font-size: 0.92rem;
+  line-height: 1.2;
+}
+.teapick__card small {
+  display: block;
+  margin-top: 0.1rem;
+  font-size: 0.74rem;
+  color: var(--cream-faint);
+}
+.teapick__opt:hover .teapick__card {
+  border-color: rgba(195, 217, 140, 0.5);
+}
+.teapick__opt input:checked + .teapick__card {
+  border-color: var(--amber-400);
+  background: rgba(217, 162, 74, 0.14);
+}
+.teapick__opt input:focus-visible + .teapick__card {
+  outline: 3px solid var(--matcha-300);
+  outline-offset: 3px;
+}
+
+/* the three numbers */
+.facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin: 0 0 1.2rem;
+}
+.facts div:first-child {
+  grid-column: 1 / -1;
+}
+@media (min-width: 641px) {
+  .facts {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+  .facts div:first-child {
+    grid-column: auto;
+  }
+}
+.facts div {
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  background: rgba(195, 217, 140, 0.08);
+}
+.facts dt {
+  margin-bottom: 0.3rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--matcha-300);
+}
+.facts dd {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.02rem;
+  line-height: 1.35;
+}
+.facts dd span {
+  font-weight: 300;
+  color: var(--cream-dim);
+  font-size: 0.88rem;
+}
+
+/* amount and temperature callouts */
+.callout {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.1rem 1.3rem;
+  border-radius: 16px;
+  background: rgba(195, 217, 140, 0.09);
+  border: 1px solid rgba(195, 217, 140, 0.2);
+}
+.callout p {
+  margin: 0;
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  color: var(--cream-dim);
+}
+.callout p b {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--cream);
+}
+.callout p b span {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--matcha-200);
+}
+.callout .callout__temp {
+  display: block;
+  flex: none;
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: 3.6rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--amber-300);
+  font-variant-numeric: tabular-nums;
+}
+.callout__temp small {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+.pot {
+  flex: none;
+  inline-size: 92px;
+  block-size: auto;
+  color: var(--matcha-300);
+}
+.pot__leaf {
+  fill: var(--matcha-400);
+  opacity: 0.85;
+}
+
+/* the wait */
+.wait {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+}
+.wait__pick {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: rgba(195, 217, 140, 0.1);
+}
+.wait__pick button {
+  min-inline-size: 64px;
+  min-block-size: 44px;
+  padding: 0 1rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--cream-dim);
+  transition:
+    background-color 0.18s var(--ease),
+    color 0.18s var(--ease);
+}
+.wait__pick button[aria-pressed="true"] {
+  background: var(--matcha-300);
+  color: var(--ink);
+}
+.wait__pick button:disabled {
+  cursor: default;
+}
+.wait__pick button:disabled:not([aria-pressed="true"]) {
+  opacity: 0.4;
+}
+.wait__msg {
+  min-block-size: 1.6em;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--amber-300);
+}
+.wait__ctl {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.dial {
+  position: relative;
+  inline-size: min(250px, 64vw);
+  aspect-ratio: 1;
+}
+.dial__ring {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  fill: none;
+}
+.dial__track {
+  stroke: rgba(195, 217, 140, 0.18);
+  stroke-width: 6;
+}
+.dial__bar {
+  stroke: var(--matcha-300);
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition:
+    stroke-dashoffset 0.25s linear,
+    stroke 0.3s var(--ease);
+}
+.dial__time {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-opsz);
+  font-size: clamp(3rem, 15vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--cream);
+}
+.dial__steam {
+  position: absolute;
+  left: 50%;
+  top: 13%;
+  inline-size: 36%;
+  translate: -50% 0;
+  color: var(--matcha-300);
+  overflow: visible;
+}
+.dial__steam path {
+  opacity: 0.25;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+.dial[data-status="running"] .dial__steam path,
+.dial[data-status="done"] .dial__steam path {
+  animation: dial-wisp 3.2s ease-in-out infinite;
+}
+.dial[data-status="running"] .dial__steam .w2,
+.dial[data-status="done"] .dial__steam .w2 {
+  animation-duration: 3.8s;
+  animation-delay: 0.5s;
+}
+.dial[data-status="running"] .dial__steam .w3,
+.dial[data-status="done"] .dial__steam .w3 {
+  animation-duration: 2.9s;
+  animation-delay: 0.9s;
+}
+@keyframes dial-wisp {
+  0% {
+    opacity: 0;
+    transform: translate(0, 14px) skewX(0);
+  }
+  25% {
+    opacity: 0.9;
+    transform: translate(2px, 4px) skewX(3deg);
+  }
+  60% {
+    opacity: 0.6;
+    transform: translate(-3px, -8px) skewX(-4deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(3px, -22px) skewX(3deg);
+  }
+}
+.dial[data-status="done"] .dial__bar {
+  stroke: var(--amber-400);
+  animation: dial-glow 1.3s ease-in-out 3;
+}
+.dial[data-status="done"] .dial__steam {
+  color: var(--amber-300);
+  scale: 1.2;
+}
+.dial[data-status="done"] .dial__time {
+  color: var(--amber-300);
+}
+@keyframes dial-glow {
+  50% {
+    filter: drop-shadow(0 0 10px rgba(217, 162, 74, 0.8));
+  }
+}
+
+/* buttons */
+.gbtn {
+  min-inline-size: 7rem;
+  min-block-size: 48px;
+  padding: 0.7rem 1.5rem;
+  border: 1px solid rgba(195, 217, 140, 0.4);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--cream);
+  transition:
+    background-color 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    opacity 0.2s var(--ease);
+}
+.gbtn:hover:not(:disabled) {
+  background: rgba(195, 217, 140, 0.14);
+}
+.gbtn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.gbtn--solid {
+  border-color: var(--amber-400);
+  background: var(--amber-400);
+  color: var(--ink);
+}
+.gbtn--solid:hover:not(:disabled) {
+  background: var(--amber-200);
+  border-color: var(--amber-200);
+}
+.guide__foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.9rem clamp(1.25rem, 4vw, 2.2rem) max(1rem, env(safe-area-inset-bottom));
+  border-top: 1px solid rgba(195, 217, 140, 0.16);
+  background: rgba(8, 18, 12, 0.5);
+}
+.guide__foot .gbtn--solid {
+  flex: 1 1 auto;
+  max-inline-size: 14rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guide[open] {
+    animation: none;
+  }
+}

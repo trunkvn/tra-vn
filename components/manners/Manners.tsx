@@ -1,5 +1,6 @@
 import Image from "next/image";
 import "./manners.css";
+import Speak from "@/components/speak/Speak";
 
 const rules = [
   {
@@ -86,7 +87,10 @@ export default function Manners() {
         <ul className="manners__list">
           {rules.map((r) => (
             <li key={r.vi}>
-              <h3 lang="vi">{r.vi}</h3>
+              <h3 lang="vi">
+                {r.vi}
+                <Speak text={r.vi} size="sm" />
+              </h3>
               <span className="gloss">{r.gloss}</span>
               <p>{r.text}</p>
             </li>

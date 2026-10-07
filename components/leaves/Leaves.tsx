@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties, type Keyb
 import { photoCredits } from "./credits";
 import { teas, type Tea } from "./teas";
 import "./leaves.css";
+import Speak from "@/components/speak/Speak";
 
 const N = teas.length;
 const STEP = 360 / N;
@@ -334,7 +335,10 @@ export default function Leaves() {
                 <p className="dish-panel__index">
                   Tea {String(i + 1).padStart(2, "0")} / {String(N).padStart(2, "0")} · {t.tagline}
                 </p>
-                <h3 lang="vi">{t.vi}</h3>
+                <h3 lang="vi">
+                  {t.vi}
+                  <Speak text={t.vi} />
+                </h3>
                 <p className="dish-panel__en">{t.en}</p>
                 <p className="dish-panel__note">{t.note}</p>
                 <dl className="dish-facts">

@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 import { teas } from "@/components/leaves/teas";
 import AudioPlayer from "./AudioPlayer";
 import "./hero.css";
+import Speak from "@/components/speak/Speak";
 
 export default function Hero() {
   return (
@@ -24,7 +25,8 @@ export default function Hero() {
             <em>The Vietnamese way of tea</em>
           </h1>
           <p className="hero__pron">
-            <span lang="vi">Nhất thủy, nhì trà, tam bôi, tứ bình, ngũ quần anh</span> ·{" "}
+            <span lang="vi">Nhất thủy, nhì trà, tam bôi, tứ bình, ngũ quần anh</span>
+            <Speak text="Nhất thủy, nhì trà, tam bôi, tứ bình, ngũ quần anh" size="sm" /> ·{" "}
             <i>“water, tea, cup, pot, good company”</i>
           </p>
           <p className="lede hero__lede">
