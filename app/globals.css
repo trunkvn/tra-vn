@@ -70,6 +70,8 @@
 }
 html {
   -webkit-text-size-adjust: 100%;
+  /* Keep the scrollbar's space reserved even while the loader or the brew guide hides it, so the page doesn't jump sideways. */
+  scrollbar-gutter: stable;
 }
 body {
   margin: 0;

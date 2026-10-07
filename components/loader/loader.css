@@ -13,6 +13,11 @@
 body:has(.loader) {
   overflow: hidden;
 }
+/* The scrollbar gutter stays reserved while the loader hides the scrollbar, and a fixed overlay can't cover it,
+   so give that strip the loader's edge colour instead of the page's. */
+html:has(.loader) {
+  background: var(--leaf-900);
+}
 .loader[data-phase="leaving"] {
   animation: loader-out 0.8s var(--ease) forwards;
   pointer-events: none;
